@@ -42,5 +42,17 @@ Route::get('contact', function(){
     return view('layouts.contact');
 }) ->name('contact');
 
+// For Social Links
 
+// Google login
+Route::get('login/google','Auth\LoginController@redirectToGoogle') ->name('login-google');
+Route::get('login/google/callback','Auth\LoginController@handleGoogleCallback');
+
+// Facebook login
+Route::get('login/facebook','Auth\LoginController@redirectToFacebook') ->name('login-facebook');
+Route::get('login/facebook/callback','Auth\LoginController@handleFacebookCallback');
+
+// Github login
+Route::get('login/github','Auth\LoginController@redirectToGithub') ->name('login-github');
+Route::get('login/github/callback','Auth\LoginController@handleGithubCallback');
 

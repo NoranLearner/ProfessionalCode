@@ -78,6 +78,17 @@
                                 @endif
                             </div>
                         </div>
+
+                        <p style="text-align: center">OR</p>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-3">
+                                <a href="{{ route('login-google') }}" class="btn btn-danger btn-block">Login with Google</a>
+                                <a href="{{ route('login-facebook') }}" class="btn btn-primary btn-block">Login with Facebook</a>
+                                <a href="{{ route('login-github') }}" class="btn btn-dark btn-block">Login with Github</a>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
