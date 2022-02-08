@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile Number') }}</label>
 
                             <div class="col-md-6">
@@ -51,7 +51,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
 
-                        <p style="text-align: center">OR</p>
+                        {{-- <p style="text-align: center">OR</p>
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-3">
@@ -91,7 +91,7 @@
                                 <a href="{{ route('login-facebook') }}" class="btn btn-primary btn-block">Login with Facebook</a>
                                 <a href="{{ route('login-github') }}" class="btn btn-dark btn-block">Login with Github</a>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </form>
                 </div>
