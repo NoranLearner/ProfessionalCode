@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,4 +56,18 @@ Route::get('login/facebook/callback','Auth\LoginController@handleFacebookCallbac
 // Github login
 Route::get('login/github','Auth\LoginController@redirectToGithub') ->name('login-github');
 Route::get('login/github/callback','Auth\LoginController@handleGithubCallback');
+
+//CrudController
+// Route::get('fillable', 'CrudController@getOffers');
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+        Route::group(['prefix' => 'offers'],function(){
+            Route::get('create', 'CrudController@create');
+            Route::post('store', 'CrudController@store') ->name('offers-store');
+            Route::get('all', 'CrudController@getAllOffers');
+        });
+    });
 
