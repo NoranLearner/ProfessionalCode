@@ -7,6 +7,7 @@ return [
     'offernameUnique' => 'offer name must be unique',
     'offerpriceNumeric' => 'offer price must be number',
     'Add Your Offer' => 'Add Your Offer',
+    'Edit Offer' => 'Edit Offer',
     'offername' => 'Offer Name',
     'offernameAR' => 'Offer Name in arabic',
     'offernameEN' => 'Offer Name in english',
@@ -14,6 +15,8 @@ return [
     'offerdetails' => 'Offer Details',
     'offerdetailsAR' => 'Offer Details in arabic',
     'offerdetailsEN' => 'Offer Details in english',
+    'operation' => 'Operations',
     'saveoffer' => 'Save Offer',
-
+    'update' => 'Update',
+    'offerphoto' => 'Offer Photo',
 ];

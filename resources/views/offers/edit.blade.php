@@ -30,7 +30,7 @@
 
             .flex-center {
                 align-items: center;
-                display: flex;
+                /* display: flex; */
                 justify-content: center;
             }
 
@@ -66,6 +66,9 @@
                 margin-bottom: 30px;
             }
 
+            form{
+                margin: 20px;
+            }
         </style>
     </head>
     <body>
@@ -90,30 +93,59 @@
             </div>
         </nav>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col"> {{ __('messages.offername') }} </th>
-                    <th scope="col"> {{ __('messages.offerprice') }} </th>
-                    <th scope="col"> {{ __('messages.offerdetails') }} </th>
-                    <th scope="col"> {{ __('messages.operation') }} </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($offers as $offer)
-                    <tr>
-                        <th scope="row">{{ $offer -> id }}</th>
-                        <td>{{ $offer -> name }}</td>
-                        <td>{{ $offer -> price }}</td>
-                        <td>{{ $offer -> details }}</td>
-                        <td>
-                            <a href="{{url('offers/edit/'.$offer -> id)}}" class="btn btn-success"> {{ __('messages.update') }} </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="flex-center position-ref full-height">
 
+            <div class="content">
+                <div class="title m-b-md">
+                    {{-- Add Your Offer --}}
+                    {{ __('messages.Edit Offer') }}
+                </div>
+            </div>
+
+            @if (Session::has('success'))
+            <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
+            @endif
+
+            <form method="POST" action="{{ route('offers-update', $offer -> id) }}">
+                {{-- <input name="_token" value="{{ csrf_token() }}"> --}}
+                @csrf
+                <div class="form-group">
+                    <label for="offername"> {{ __('messages.offernameAR') }} </label>
+                    <input type="text" class="form-control" id="offername" name="name_ar" value="{{ $offer -> name_ar }}">
+                    @error('name_ar')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="offername"> {{ __('messages.offernameEN') }} </label>
+                    <input type="text" class="form-control" id="offername" name="name_en"  value="{{ $offer -> name_en }}">
+                    @error('name_en')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="offerprice" class="form-label">{{ __('messages.offerprice') }}</label>
+                    <input type="text" class="form-control" id="offerprice" name="price"  value="{{ $offer -> price }}">
+                    @error('price')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="offerdetails" class="form-label">{{ __('messages.offerdetailsAR') }}</label>
+                    <input type="text" class="form-control" id="offerdetails" name="details_ar" value="{{ $offer -> details_ar }}">
+                    @error('details_ar')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="offerdetails" class="form-label">{{ __('messages.offerdetailsEN') }}</label>
+                    <input type="text" class="form-control" id="offerdetails" name="details_en" value="{{ $offer -> details_en }}">
+                    @error('details_en')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">{{ __('messages.saveoffer') }}</button>
+            </form>
+        </div>
     </body>
 </html>

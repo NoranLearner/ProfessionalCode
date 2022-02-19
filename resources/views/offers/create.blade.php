@@ -106,7 +106,7 @@
             <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
             @endif
 
-            <form method="POST" action="{{ route('offers-store') }}">
+            <form method="POST" action="{{ route('offers-store') }}" enctype="multipart/form-data">
                 {{-- <input name="_token" value="{{ csrf_token() }}"> --}}
                 @csrf
                 <div class="form-group">
@@ -141,6 +141,13 @@
                     <label for="offerdetails" class="form-label">{{ __('messages.offerdetailsEN') }}</label>
                     <input type="text" class="form-control" id="offerdetails" name="details_en">
                     @error('details_en')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="offerphoto"> {{ __('messages.offerphoto') }} </label>
+                    <input type="file" class="form-control" id="offerphoto" name="photo">
+                    @error('photo')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>

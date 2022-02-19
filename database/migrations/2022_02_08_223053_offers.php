@@ -20,6 +20,7 @@ class Offers extends Migration
             $table->char('price', 20);
             $table ->text('details_ar');
             $table ->text('details_en');
+            $table ->char('photo', 225);
             $table->timestamps();
         });
     }

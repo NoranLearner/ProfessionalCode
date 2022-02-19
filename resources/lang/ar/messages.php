@@ -7,6 +7,7 @@ return [
     'offernameUnique' => 'اسم العرض موجود',
     'offerpriceNumeric' => 'سعر العرض يجب ان يكون ارقام',
     'Add Your Offer' => 'اضافه عرض جديد',
+    'Edit Offer' => 'تعديل العرض',
     'offername' => 'اسم العرض',
     'offernameAR' => ' اسم العرض بالعربى',
     'offernameEN' => 'اسم العرض بالانجليزى',
@@ -14,5 +15,8 @@ return [
     'offerdetails' => 'تفاصيل العرض',
     'offerdetailsAR' => 'تفاصيل العرض بالعربى',
     'offerdetailsEN' => 'تفاصيل العرض بالانجليزى',
+    'operation' => 'العمليات',
     'saveoffer' => 'حفظ',
+    'update' => 'تحديث',
+    'offerphoto' => 'صورة العرض',
 ];

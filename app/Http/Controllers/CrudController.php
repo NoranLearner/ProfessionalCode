@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
+use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use LaravelLocalization;
 
 class CrudController extends Controller
 {
+    use OfferTrait;
 
     /* public function getOffers(){
         return Offer::select('id', 'name')->get();
@@ -66,6 +68,16 @@ class CrudController extends Controller
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         } */
 
+        /*
+        // save photo in folder
+        $file_extension = $request -> photo -> getClientOriginalExtension();
+        $file_name = time().'.'.$file_extension;
+        $path = 'images/offers';
+        $request -> photo -> move($path, $file_name);
+        //return 'okay'; */
+        // by Trait
+        $file_name = $this -> saveImage($request -> photo , 'images/offers');
+
         // insert data from form to database
         Offer::create([
             'name_ar' => $request->name_ar,
@@ -73,6 +85,7 @@ class CrudController extends Controller
             'price' =>  $request->price,
             'details_ar' => $request->details_ar,
             'details_en' => $request->details_en,
+            'photo' => $file_name,
         ]);
         // return 'Saved Successfully';
         return redirect()->back()->with(['success' => 'تم اضافه العرض بنجاح']);
@@ -122,9 +135,17 @@ class CrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editOffer($offer_id)
     {
-        //
+        //Offer::findOrFail($offer_id);
+        $offer = Offer::find($offer_id);
+        if (! $offer) {
+            return redirect() -> back();
+        }
+        $offer = Offer::select('id', 'name_ar', 'name_en', 'price', 'details_ar', 'details_en') -> find($offer_id);
+        return view('offers.edit', compact('offer'));
+
+        // return $offer_id;
     }
 
     /**
@@ -134,9 +155,22 @@ class CrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateOffer(OfferRequest $request, $offer_id)
     {
-        //
+        //validation
+        //check if offer exist
+        $offer = Offer::find($offer_id);
+        if (! $offer) {
+            return redirect() -> back();
+        }
+        // update data
+        $offer->update($request -> all());
+        /* $offer->update([
+            'name_ar' => $request -> name_ar,
+            'name_en' => $request -> name_en,
+            'price' => $request -> price,
+        ]); */
+        return redirect() -> back() ->with(['success' => 'تم التحديث بنجاح']);
     }
 
     /**
