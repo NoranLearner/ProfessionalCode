@@ -18,5 +18,8 @@ return [
     'operation' => 'العمليات',
     'saveoffer' => 'حفظ',
     'update' => 'تحديث',
+    'delete' => 'حذف',
     'offerphoto' => 'صورة العرض',
+    'OfferNotExist' => 'العرض غير موجود',
+    'DeleteOffer' => 'تم الحذف بنجاح',
 ];

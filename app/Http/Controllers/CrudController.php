@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoViewer;
 use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
+use App\Models\Video;
 use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -149,6 +151,25 @@ class CrudController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteOffer($offer_id)
+    {
+        //validation
+        //check if offer exist
+        $offer = Offer::find($offer_id);
+        if (! $offer) {
+            return redirect() -> back() -> with(['error' => __('messages.OfferNotExist')]);
+        }
+        //Delete Data
+        $offer -> delete();
+        return redirect() -> route('offers-all') -> with(['success' => __('messages.DeleteOffer')]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -173,14 +194,12 @@ class CrudController extends Controller
         return redirect() -> back() ->with(['success' => 'تم التحديث بنجاح']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+
+    public function getVideo()
     {
-        //
+        $video = Video::first();
+        event(new VideoViewer($video)); //fire event
+        return view('video')->with('video', $video);
     }
 }

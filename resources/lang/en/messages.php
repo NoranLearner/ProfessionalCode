@@ -18,5 +18,8 @@ return [
     'operation' => 'Operations',
     'saveoffer' => 'Save Offer',
     'update' => 'Update',
+    'delete' => 'Delete',
     'offerphoto' => 'Offer Photo',
+    'OfferNotExist' => 'Offer Not Exist',
+    'DeleteOffer' => 'Offer Deleted Successfully',
 ];
