@@ -42,7 +42,7 @@ class OfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OfferRequest $request)
+    public function store(Request $request)
     {
         //save offer into database using ajax
         // by Trait
@@ -70,7 +70,18 @@ class OfferController extends Controller
                 'msg' => 'فشل الحفظ برجاء المحاوله مجددا',
             ]);
         }
+    }
 
+    public function all()
+    {
+        $offers = Offer::select(
+            'id',
+            'name_'.LaravelLocalization::getCurrentLocale().' as name',
+            'price' ,
+            'details_'.LaravelLocalization::getCurrentLocale().' as details',
+            'photo',
+            ) -> limit(10) -> get();
+            return view('ajaxoffers.all', compact('offers'));
     }
 
     /**
@@ -96,6 +107,33 @@ class OfferController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request)
+    {
+        // return $request;
+
+        //validation
+        //check if offer exist
+        $offer = Offer::find($request -> id);
+        if (! $offer) {
+            return redirect() -> back() -> with(['error' => __('messages.OfferNotExist')]);
+        }
+
+        //Delete Data
+        $offer -> delete();
+        //return redirect() -> route('offers-all') -> with(['success' => __('messages.DeleteOffer')]);
+        return response() -> json([
+            'status' => true,
+            'msg' => 'تم الحذف بنجاح',
+            'id' => $request -> id,
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -107,14 +145,4 @@ class OfferController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

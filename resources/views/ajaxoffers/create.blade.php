@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="alert alert-success" id="success_msg" style="display: none;"> تم الحفظ بنجاح </div>
-    <form method="POST" id="offerForm"action="" enctype="multipart/form-data">
+    <form method="POST" id="offerForm" action="" enctype="multipart/form-data">
         {{-- <input name="_token" value="{{ csrf_token() }}"> --}}
         @csrf
         <div class="form-group">
