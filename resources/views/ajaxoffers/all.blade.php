@@ -29,6 +29,7 @@
                         <a href="{{url('offers/edit/'.$offer -> id)}}" class="btn btn-success"> {{ __('messages.update') }} </a>
                         <a href="{{route('offers-delete', $offer -> id) }}" class="btn btn-danger"> {{ __('messages.delete') }} </a>
                         <a href="" offer_id="{{ $offer -> id }}" class="delete_btn btn btn-danger"> حذف اجاكس</a>
+                        <a href="{{ route('ajaxoffers-edit', $offer -> id) }}" class="btn btn-success"> تعديل اجاكس</a>
                     </td>
                 </tr>
             @endforeach

@@ -101,9 +101,17 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $offer = Offer::find($request -> offer_id);
+        if (! $offer) {
+            return response() -> json([
+                'status' => false,
+                'msg' => 'هذا العرض غير موجود',
+            ]);
+        }
+        $offer = Offer::select('id', 'name_ar', 'name_en', 'price', 'details_ar', 'details_en') -> find($request -> offer_id);
+        return view('ajaxoffers.edit', compact('offer'));
     }
 
     /**
@@ -140,9 +148,28 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //validation
+        //check if offer exist
+        $offer = Offer::find($request -> offer_id);
+        if (! $offer) {
+            return response() -> json([
+                'status' => false,
+                'msg' => 'هذا العرض غير موجود',
+            ]);
+        }
+        // update data
+        $offer->update($request -> all());
+        /* $offer->update([
+            'name_ar' => $request -> name_ar,
+            'name_en' => $request -> name_en,
+            'price' => $request -> price,
+        ]); */
+        return response() -> json([
+            'status' => true,
+            'msg' => 'تم التحديث بنجاح',
+        ]);
     }
 
 }

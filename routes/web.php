@@ -88,5 +88,8 @@ Route::group(['prefix' => 'ajaxoffers'], function(){
 
     Route::get('all', 'OfferController@all') ->name('ajaxoffers-all');
     Route::post('delete', 'OfferController@delete') ->name('ajaxoffers-delete');
+
+    Route::get('edit/{offer_id}', 'OfferController@edit') ->name('ajaxoffers-edit');
+    Route::post('update', 'OfferController@update') ->name('ajaxoffers-update');
 });
 
