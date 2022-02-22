@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -78,4 +79,11 @@ Route::group(
         // For Event & Listener
         Route::get('youtube', 'CrudController@getVideo') -> middleware('auth');
     });
+
+################################## Begin Ajax Routes ##############################################
+
+Route::group(['prefix' => 'ajaxoffers'], function(){
+    Route::get('create','OfferController@create');
+    Route::post('store', 'OfferController@store')->name('ajaxoffers-store');
+});
 
