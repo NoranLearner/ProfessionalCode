@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->text('avatar')->nullable();
             // '0 => active , 1 => expire'
             $table->tinyInteger('expire')->default(0);
+            $table->integer('age')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();

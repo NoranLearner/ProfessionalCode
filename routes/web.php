@@ -93,3 +93,8 @@ Route::group(['prefix' => 'ajaxoffers'], function(){
     Route::post('update', 'OfferController@update') ->name('ajaxoffers-update');
 });
 
+################################## Authentication & Guards #########################################
+
+Route::group(['middleware' => 'CheckAge', 'namespace' => 'Auth'], function(){
+    Route::get('adults','CustomAuthController@adult') -> name('adult');
+});
