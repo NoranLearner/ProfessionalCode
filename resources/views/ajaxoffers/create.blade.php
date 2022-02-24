@@ -9,44 +9,32 @@
         <div class="form-group">
             <label for="offername"> {{ __('messages.offernameAR') }} </label>
             <input type="text" class="form-control" id="offername" name="name_ar">
-            @error('name_ar')
-            <small class="form-text text-danger">{{ $message }}</small>
-            @enderror
+            <small id="name_ar_error" class="form-text text-danger"></small>
         </div>
         <div class="form-group">
             <label for="offername"> {{ __('messages.offernameEN') }} </label>
             <input type="text" class="form-control" id="offername" name="name_en">
-            @error('name_en')
-            <small class="form-text text-danger">{{ $message }}</small>
-            @enderror
+            <small id="name_en_error" class="form-text text-danger"></small>
         </div>
         <div class="form-group">
             <label for="offerprice" class="form-label">{{ __('messages.offerprice') }}</label>
             <input type="text" class="form-control" id="offerprice" name="price">
-            @error('price')
-            <small class="form-text text-danger">{{ $message }}</small>
-            @enderror
+            <small id="price_error" class="form-text text-danger"></small>
         </div>
         <div class="form-group">
             <label for="offerdetails" class="form-label">{{ __('messages.offerdetailsAR') }}</label>
             <input type="text" class="form-control" id="offerdetails" name="details_ar">
-            @error('details_ar')
-            <small class="form-text text-danger">{{ $message }}</small>
-            @enderror
+            <small id="details_ar_error" class="form-text text-danger"></small>
         </div>
         <div class="form-group">
             <label for="offerdetails" class="form-label">{{ __('messages.offerdetailsEN') }}</label>
             <input type="text" class="form-control" id="offerdetails" name="details_en">
-            @error('details_en')
-            <small class="form-text text-danger">{{ $message }}</small>
-            @enderror
+            <small id="details_en_error" class="form-text text-danger"></small>
         </div>
         <div class="form-group">
             <label for="offerphoto"> {{ __('messages.offerphoto') }} </label>
             <input type="file" class="form-control" id="offerphoto" name="photo">
-            @error('photo')
-            <small class="form-text text-danger">{{ $message }}</small>
-            @enderror
+            <small id="photo_error"class="form-text text-danger"></small>
         </div>
         <button id="save_offer" class="btn btn-primary">{{ __('messages.saveoffer') }}</button>
     </form>
@@ -57,6 +45,13 @@
 <script>
     $(document).on('click', '#save_offer', function (e) {
         e.preventDefault();
+
+        $('#photo_error').text('');
+        $('#name_ar_error').text('');
+        $('#name_en_error').text('');
+        $('#price_error').text('');
+        $('#details_ar_error').text('');
+        $('#details_en_error').text('')
 
         var formData = new FormData($('#offerForm')[0]);
 
@@ -83,7 +78,12 @@
                 $('#success_msg').show();
             }
         },
-
+        error: function (reject) {
+            var response = $.parseJSON(reject.responseText);
+            $.each(response.errors, function (key, val) {
+                $("#" + key + "_error").text(val[0]);
+            });
+        }
         });
     });
 </script>

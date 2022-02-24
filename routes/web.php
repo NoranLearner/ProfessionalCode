@@ -93,8 +93,24 @@ Route::group(['prefix' => 'ajaxoffers'], function(){
     Route::post('update', 'OfferController@update') ->name('ajaxoffers-update');
 });
 
-################################## Authentication & Guards #########################################
+################################## Authentication #########################################
 
 Route::group(['middleware' => 'CheckAge', 'namespace' => 'Auth'], function(){
     Route::get('adults','CustomAuthController@adult') -> name('adult');
 });
+
+################################### Guards ##################################################
+
+Route::group(['namespace' => 'Auth'], function(){
+
+    Route::get('site','CustomAuthController@site') -> middleware('auth:web') -> name('site');
+
+    Route::get('admin','CustomAuthController@admin') -> middleware('auth:admin') -> name('admin');
+
+    Route::get('admin/login','CustomAuthController@adminLogin') -> name('admin-login');
+
+    Route::post('admin/login','CustomAuthController@checkAdminLogin') -> name('save-adminLogin');
+
+});
+
+
