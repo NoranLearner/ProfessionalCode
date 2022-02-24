@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\VideoViewer;
-use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
 use App\Models\Video;
 use App\Traits\OfferTrait;
+use App\Events\VideoViewer;
 use Illuminate\Http\Request;
+use App\Http\Requests\OfferRequest;
 use Illuminate\Support\Facades\Validator;
-use LaravelLocalization;
 
 class CrudController extends Controller
 {

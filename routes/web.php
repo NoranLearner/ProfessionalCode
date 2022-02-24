@@ -3,6 +3,7 @@
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+// use Mcamara\LaravelLocalization\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,5 +113,22 @@ Route::group(['namespace' => 'Auth'], function(){
     Route::post('admin/login','CustomAuthController@checkAdminLogin') -> name('save-adminLogin');
 
 });
+
+#################################### Begin one to one relationship #################################################
+
+Route::group(['namespace' => 'Relation'], function(){
+
+    Route::get('has-one','RelationsController@hasOneRelation');
+
+    Route::get('has-one-reverse','RelationsController@hasOneRelationReverse');
+
+    Route::get('get-user-has-phone','RelationsController@getUserHasPhone');
+
+    Route::get('get-user-not-has-phone','RelationsController@getUserNotHasPhone');
+
+    Route::get('get-user-has-phone-with-condition','RelationsController@getUserWhereHasPhoneWithCondition');
+});
+
+
 
 

@@ -37,4 +37,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    ################## Begin one to one relationship ############
+
+    public function phone() {
+        return $this ->  hasOne('App\Models\Phone','user_id');
+    }
+    ################## End relations ############
 }
