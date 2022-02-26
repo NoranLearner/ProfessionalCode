@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Phone extends Migration
+class Doctors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class Phone extends Migration
      */
     public function up()
     {
-        Schema::create('phone', function (Blueprint $table) {
+        Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->char('code', 100)->nullable();
-            $table->char('phone', 100);
-            $table->integer('user_id');
+            $table->char('name', 100);
+            $table->char('title', 100);
+            $table->integer('hospital_id');
+            $table->tinyInteger('gender');
+            $table->integer('medical_id')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +31,6 @@ class Phone extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phone');
+        Schema::dropIfExists('doctors');
     }
 }

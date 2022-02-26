@@ -129,6 +129,44 @@ Route::group(['namespace' => 'Relation'], function(){
     Route::get('get-user-has-phone-with-condition','RelationsController@getUserWhereHasPhoneWithCondition');
 });
 
+#################################### Begin one to many relationship #################################################
 
+Route::group(['namespace' => 'Relation'], function(){
 
+    Route::get('hospital-has-many','RelationsController@getHospitalDoctors');
 
+    Route::get('hospitals','RelationsController@hospitals') -> name('hospital.all');
+    Route::get('doctors/{hospital_id}','RelationsController@doctors')-> name('hospital.doctors');
+
+    Route::get('hospitals_has_doctors','RelationsController@hospitalsHasDoctor');
+
+    Route::get('hospitals_has_doctors_male','RelationsController@hospitalsHasOnlyMaleDoctors');
+
+    Route::get('hospitals_not_has_doctors','RelationsController@hospitals_not_has_doctors');
+
+    Route::get('hospitals/{hospital_id}','RelationsController@deleteHospital') -> name('hospital.delete');
+
+});
+
+#################################### Begin many to many relationship #################################################
+
+Route::group(['namespace' => 'Relation'], function(){
+
+    Route::get('doctors-services','RelationsController@getDoctorServices');
+
+    Route::get('service-doctors','RelationsController@getServiceDoctors');
+
+    Route::get('doctors/services/{doctor_id}','RelationsController@getDoctorServicesById')-> name('doctors.services');
+
+    Route::post('saveServices-to-doctor','RelationsController@saveServicesToDoctors')-> name('save.doctors.services');
+});
+
+######################### has one through & has many through ##########################
+
+Route::group(['namespace' => 'Relation'], function(){
+
+    Route::get('has-one-through','RelationsController@getPatientDoctor');
+
+    Route::get('has-many-through','RelationsController@getCountryDoctor');
+
+});
