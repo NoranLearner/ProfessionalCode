@@ -9,6 +9,8 @@ use App\Events\VideoViewer;
 use Illuminate\Http\Request;
 use App\Http\Requests\OfferRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Scopes\OfferScope;
+use LaravelLocalization;
 
 class CrudController extends Controller
 {
@@ -110,13 +112,22 @@ class CrudController extends Controller
 
     public function getAllOffers()
     {
-        $offers = Offer::select(
+        /* $offers = Offer::select(
         'id',
         'name_'.LaravelLocalization::getCurrentLocale().' as name',
         'price' ,
         'details_'.LaravelLocalization::getCurrentLocale().' as details',
-        ) -> get();
-        return view('offers.all', compact('offers'));
+        ) -> get(); //return collection of all results
+        return view('offers.all', compact('offers')); */
+
+        ##################### paginate result ####################
+        $offers = Offer::select('id',
+        'price',
+        'photo',
+        'name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'details_' . LaravelLocalization::getCurrentLocale() . ' as details'
+        )->paginate(PAGINATION_COUNT);
+        return view('offers.paginations',compact('offers'));
     }
 
     /**
@@ -201,4 +212,24 @@ class CrudController extends Controller
         event(new VideoViewer($video)); //fire event
         return view('video')->with('video', $video);
     }
+
+    // For Laravel Scope
+    public function getAllInactiveOffers(){
+
+        // Local Scope //
+
+        // where  whereNull whereNotNull whereIn
+        // Offer::whereNotNull('details_ar') -> get();
+
+        // return  $inactiveOffers = Offer::where('status',0) -> get();
+        // return  $inactiveOffers = Offer::inactive()->get();  //all inactive offers
+
+        // global scope //
+
+        // return  $inactiveOffers = Offer::get();  //all inactive offers
+
+        // how to  remove global scope
+        // return $offer  = Offer::withoutGlobalScope(OfferScope::class)->get();
+    }
+
 }

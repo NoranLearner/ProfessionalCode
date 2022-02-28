@@ -3,7 +3,8 @@
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// use Mcamara\LaravelLocalization\LaravelLocalization;
+
+define('PAGINATION_COUNT',5);
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,8 @@ Route::group(
             Route::get('delete/{offer_id}', 'CrudController@deleteOffer') ->name('offers-delete');
 
             Route::get('all', 'CrudController@getAllOffers') ->name('offers-all');
+
+            Route::get('get-all-inactive-offer', 'CrudController@getAllInactiveOffers');
         });
         // For Event & Listener
         Route::get('youtube', 'CrudController@getVideo') -> middleware('auth');
@@ -170,3 +173,18 @@ Route::group(['namespace' => 'Relation'], function(){
     Route::get('has-many-through','RelationsController@getCountryDoctor');
 
 });
+
+#######################  Begin Accessors & Mutators ###################
+
+Route::get('accessors','Relation\RelationsController@getDoctors'); //get data
+
+
+#######################  Begin Collection ###################
+
+Route::get('collection','CollectTut@index');
+
+Route::get('maincats','CollectTut@complex');
+
+Route::get('main-cats','CollectTut@complexFilter');
+
+Route::get('main-cat','CollectTut@complexTransform');
